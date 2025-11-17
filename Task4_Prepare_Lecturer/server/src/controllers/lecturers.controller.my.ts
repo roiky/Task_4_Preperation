@@ -10,7 +10,7 @@ export async function createLecturer(req: Request, res: Response, next: NextFunc
         const { name, skills } = parsed.data;
 
         const existLecturer = await service.findByNameInsensitive(name);
-        if (existLecturer) return res.status(400).json({ message: `Lecturer Already Exist [ID: ${existLecturer.id}]` });
+        if (existLecturer) return res.status(409).json({ message: `Lecturer Already Exist [ID: ${existLecturer.id}]` });
 
         //if passed validations - we will create the lecturer!
         const LecturerID = await service.createLecturer({ name, skills });

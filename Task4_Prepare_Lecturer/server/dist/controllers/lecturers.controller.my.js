@@ -56,7 +56,7 @@ function createLecturer(req, res, next) {
             const { name, skills } = parsed.data;
             const existLecturer = yield service.findByNameInsensitive(name);
             if (existLecturer)
-                return res.status(400).json({ message: `Lecturer Already Exist [ID: ${existLecturer.id}]` });
+                return res.status(409).json({ message: `Lecturer Already Exist [ID: ${existLecturer.id}]` });
             //if passed validations - we will create the lecturer!
             const LecturerID = yield service.createLecturer({ name, skills });
             const createdCheck = yield service.findById(LecturerID);
