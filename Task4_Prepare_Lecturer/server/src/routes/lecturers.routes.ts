@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createLecturer, getAllLecturers, deleteLecturer } from "../controllers/lecturers.controller";
+import { createLecturer, getAllLecturers, deleteLecturer } from "../controllers/lecturers.controller.my";
 
 const router = Router();
 

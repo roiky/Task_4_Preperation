@@ -17,14 +17,13 @@ export type LecturerRow = {
 
 export async function findAll(): Promise<LecturerRow[]> {
     try {
-        const pool = await getConnection();
-        const [rows] = await pool.query(
-            `SELECT id, name, skills_react, skills_node, skills_angular, skills_dotnet,
+        const conn = await getConnection();
+        const sql = `SELECT id, name, skills_react, skills_node, skills_angular, skills_dotnet,
             skills_microservices, skills_microfrontends, skills_ai, skills_docker,
             created_at, updated_at
      FROM lecturers
-     ORDER BY created_at DESC`
-        );
+     ORDER BY created_at DESC`;
+        const [rows]: any = await conn.execute(sql);
         return rows as LecturerRow[];
     } catch (error) {
         console.error(`error while trying to get lecturers`);
@@ -34,8 +33,10 @@ export async function findAll(): Promise<LecturerRow[]> {
 
 export async function findByNameInsensitive(name: string): Promise<LecturerRow | undefined> {
     try {
-        const pool = await getConnection();
-        const [rows] = await pool.query(`SELECT * FROM lecturers WHERE LOWER(name) = LOWER(?) LIMIT 1`, [name]);
+        const conn = await getConnection();
+        const sql = `SELECT * FROM lecturers WHERE LOWER(name) = LOWER(?) LIMIT 1`;
+        const params = [name];
+        const [rows]: any = await conn.execute(sql, params);
         return (rows as LecturerRow[])[0];
     } catch (error) {
         console.error(`error while trying to get lecturers by name`);
@@ -45,8 +46,10 @@ export async function findByNameInsensitive(name: string): Promise<LecturerRow |
 
 export async function findById(id: number): Promise<LecturerRow | undefined> {
     try {
-        const pool = await getConnection();
-        const [rows] = await pool.query(`SELECT * FROM lecturers WHERE id = ? LIMIT 1`, [id]);
+        const conn = await getConnection();
+        const sql = `SELECT * FROM lecturers WHERE id = ? LIMIT 1`;
+        const params = [id];
+        const [rows]: any = await conn.execute(sql, params);
         return (rows as LecturerRow[])[0];
     } catch (error) {
         console.error(`error while trying to get lecturers by ID`);
