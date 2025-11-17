@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import api from "../services/api";
 import { Button } from "@mui/material";
+import { deleteLecturer, fetchLecturers } from "../services/lecturers.services";
 
 type Lecturer = {
     id: number;
@@ -23,8 +24,9 @@ export default function LecturersTable() {
     async function load() {
         setLoading(true);
         try {
-            const res = await api.get("/api/lecturers");
-            setList(res.data);
+            // const res = await api.get("/api/lecturers");
+            const res = await fetchLecturers();
+            setList(res);
         } catch (err) {
             console.error("Failed to load lecturers:", err);
             alert("Failed to load lecturers");
@@ -40,18 +42,14 @@ export default function LecturersTable() {
     async function onDelete(id: number) {
         if (!confirm("Delete this lecturer?")) return;
         try {
-            const res = await api.delete(`/api/lecturers/${id}`);
-            // accept either 200 with body or 204
-            if (res.status >= 200 && res.status < 300) {
-                setList((prev) => prev.filter((x) => x.id !== id));
-                alert(`Lecturer ${id} deleted`);
-            } else {
-                alert("Delete returned unexpected status: " + res.status);
-            }
+            await deleteLecturer(id); // <-- delete service that returns void / throws on error
+            await load(); // <-- reload the list after successful delete
+            alert(`Lecturer ID:${id} deleted`);
         } catch (err: any) {
             console.error("Delete failed:", err);
             if (err?.response?.status === 404) alert("Lecturer not found");
             else alert("Failed to delete");
+        } finally {
         }
     }
 

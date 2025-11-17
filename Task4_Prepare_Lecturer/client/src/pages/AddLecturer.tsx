@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 import RatingInput from "../components/RatingInput";
 import { Button } from "@mui/material";
+import { postLecturer } from "../services/lecturers.services";
 
 type Skills = {
     react: number;
@@ -53,7 +54,8 @@ export default function AddLecturer() {
 
         setLoading(true);
         try {
-            await api.post("/api/lecturers", { name: trimmed, skills });
+            // await api.post("/api/lecturers", { name: trimmed, skills });
+            await postLecturer(trimmed, skills);
             alert("Lecturer added successfully");
             navigate("/lecturers");
         } catch (err: any) {
