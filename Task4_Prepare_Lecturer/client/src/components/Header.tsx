@@ -2,6 +2,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import icon from "../assets/navbar_icon.png";
 // import { useAuth } from "../contex/AuthContext";
 import { Button } from "@mui/material";
+import TableChartOutlinedIcon from "@mui/icons-material/TableChartOutlined";
+import AddIcon from "@mui/icons-material/Add";
 
 export default function Header() {
     const location = useLocation();
@@ -21,6 +23,7 @@ export default function Header() {
                         variant="contained"
                         color="success"
                         onClick={() => navigate("/lecturers")}
+                        startIcon={<TableChartOutlinedIcon />}
                     >
                         Lecturers Table
                     </Button>
@@ -30,6 +33,7 @@ export default function Header() {
                         size="small"
                         variant="contained"
                         // color="error"
+                        startIcon={<AddIcon />}
                         onClick={() => navigate("/")}
                     >
                         Add Lecturer

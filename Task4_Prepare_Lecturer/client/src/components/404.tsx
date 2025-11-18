@@ -8,7 +8,7 @@ export default function Display404() {
             style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", marginTop: "5%" }}
         >
             <img src={errorImage} style={{ width: "40%" }} />
-            <a style={{ fontSize: "small", fontWeight: "bold" }} onClick={() => navigate("/vacations")}>
+            <a style={{ fontSize: "small", fontWeight: "bold" }} onClick={() => navigate("/lecturers")}>
                 GO TO THE MAIN PAGE!!!
             </a>
         </div>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import api from "../services/api";
 import { Button } from "@mui/material";
 import { deleteLecturer, fetchLecturers } from "../services/lecturers.services";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 type Lecturer = {
     id: number;
@@ -93,6 +94,7 @@ export default function LecturersTable() {
                                         variant="contained"
                                         color="error"
                                         onClick={() => onDelete(l.id)}
+                                        // endIcon={<DeleteIcon />}
                                     >
                                         Delete
                                     </Button>
